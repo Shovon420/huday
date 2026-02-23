@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do you love me? ❤️</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe6e6;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden; 
+        }
+
+        #container {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 350px;
+            z-index: 10;
+        }
+
+        h1 { color: #ff4d6d; font-size: 2rem; margin-bottom: 30px; }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            height: 60px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        #yesButton { background-color: #ff4d6d; color: white; }
+        #noButton { background-color: #999; color: white; transition: all 0.2s ease; }
+
+        .hidden { display: none; }
+        
+        .celebration-gif {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .heart {
+            position: fixed;
+            top: -10vh;
+            font-size: 24px;
+            color: #ff4d6d;
+            user-select: none;
+            z-index: 5;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall { to { transform: translateY(110vh); } }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="askPage">
+            <h1>Do you love me? ❤️</h1>
+            <div class="btn-group">
+                <button id="yesButton" onclick="handleYes()">Yes</button>
+                <button id="noButton" onmouseover="moveButton()" onclick="moveButton()">No</button>
+            </div>
+        </div>
+
+        <div id="lovePage" class="hidden">
+            <img class="celebration-gif" src="https://media.giphy.com/media/IXB6wt6QhO8EM/giphy.gif" alt="Snoopy Dance">
+            <h1>I LOVE YOU TOO! ❤️</h1>
+        </div>
+    </div>
+
+    <script>
+        function moveButton() {
+            const btn = document.getElementById('noButton');
+            btn.style.position = 'fixed'; 
+            const maxX = window.innerWidth - btn.offsetWidth - 50;
+            const maxY = window.innerHeight - btn.offsetHeight - 50;
+            btn.style.left = Math.floor(Math.random() * maxX) + 'px';
+            btn.style.top = Math.floor(Math.random() * maxY) + 'px';
+        }
+
+        function handleYes() {
+            document.getElementById('askPage').classList.add('hidden');
+            document.getElementById('lovePage').classList.remove('hidden');
+            startHeartRain();
+        }
+
+        function startHeartRain() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️'; 
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => { heart.remove(); }, 5000);
+            }, 150);
+        }
+    </script>
+</body>
+</html>
